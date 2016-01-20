@@ -2,11 +2,9 @@
   "name": "classer",
   "version": "0.0.0",
   "description": "Yet another way to create class-like object/functions with private, public, and static members",
-  "homepage": "",
   "author": {
     "name": "Blake Regalia",
-    "email": "blake.regalia@gmail.com",
-    "url": ""
+    "email": "blake.regalia@gmail.com"
   },
   "files": [
     "dist"
@@ -22,20 +20,21 @@
   ],
   "repository": "blake.regalia/classer",
   "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-eslint": "^4.1.6",
+    "babel-plugin-transform-runtime": "^6.4.3",
+    "babel-preset-es2015": "^6.3.13",
+    "del": "^2.0.2",
     "gulp": "^3.6.0",
+    "gulp-babel": "^6.1.1",
     "gulp-eslint": "^1.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-istanbul": "^0.9.0",
+    "gulp-istanbul": "^0.10.3",
     "gulp-mocha": "^2.0.0",
     "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0",
-    "gulp-babel": "^5.1.0",
-    "del": "^2.0.2",
-    "babel-core": "^5.5.0",
-    "isparta": "^3.0.3"
+    "isparta": "^4.0.0"
   },
   "scripts": {
-    "prepublish": "gulp prepublish",
     "test": "gulp"
   },
   "license": "ISC"
