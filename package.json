@@ -9,7 +9,7 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "dist/main/index.js",
   "keywords": [
     "class",
     "super",
