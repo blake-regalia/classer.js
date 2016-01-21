@@ -1,30 +1,65 @@
-# classer [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Yet another way to create class-like object/functions with private, public, and static members
-
+# classer
 
 ## Install
-
 ```sh
-$ npm install --save classer
+$ npm i classer
 ```
 
-
-## Usage
-
+## Use
 ```js
-var classer = require('classer');
+/**
+* private static:
+**/
+const H_LOOKUP = {
+	a: 'arnold',
+	b: 'batman',	
+};
 
-classer('Rainbow');
+/**
+* class:
+**/
+const local = classer('MyClass', (h_config) => {
+	
+	/**
+	* private fields:
+	**/
+	let {
+		name: s_name,
+		limit: n_limit,
+	} = h_config;
+
+	/**
+	* private methods:
+	**/
+	const run_task = () => {
+		n_limit += 1;
+	};
+
+	/**
+	* public:
+	**/
+	return {
+		org: 2,
+
+		getName() {
+			return s_name;
+		},
+
+		change() {
+			run_task();
+		},
+	};
+},
+	/**
+	* public static:
+	**/
+	{
+	
+	help: () => {
+		return 'help yourself';
+	},
+});
+
+// exports
+export default local;
 ```
-
-## License
-
-ISC © [Blake Regalia]()
-
-
-[npm-image]: https://badge.fury.io/js/classer.svg
-[npm-url]: https://npmjs.org/package/classer
-[travis-image]: https://travis-ci.org/blake.regalia/classer.svg?branch=master
-[travis-url]: https://travis-ci.org/blake.regalia/classer
-[daviddm-image]: https://david-dm.org/blake.regalia/classer.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/blake.regalia/classer
