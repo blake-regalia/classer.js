@@ -6,6 +6,9 @@ $ npm i classer
 ```
 
 ## Use
+
+### my-class.js:
+
 ```js
 /**
 * private static:
@@ -62,4 +65,13 @@ const local = classer('MyClass', (h_config) => {
 
 // exports
 export default local;
+```
+
+### index.js:
+```js
+import MyClass from './my-class.js';
+
+let instance = MyClass({name: 'cartman', limit: 5});
+instance.getName(); // 'cartman'
+MyClass.help(); // 'help yourself'
 ```
