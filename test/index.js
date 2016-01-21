@@ -24,5 +24,9 @@ describe('classer', () => {
 	local.warn('warn');
 	local.good('good');
 	local.error('error');
-	local.fail('fail');
+	try {
+		local.fail('fail');
+	} catch(e) {
+		local.good('failing worked');
+	}
 });
