@@ -41,7 +41,9 @@ const local = classer('MyClass', (h_config) => {
 	/**
 	* public:
 	**/
-	return {
+	return classer.operator(function() {
+		return 'hi! I am '+s_name;
+	}, {
 		org: 2,
 
 		getName() {
@@ -72,6 +74,7 @@ export default local;
 import MyClass from './my-class.js';
 
 let instance = MyClass({name: 'cartman', limit: 5});
+instance(); // 'hi! I am cartman'
 instance.getName(); // 'cartman'
 MyClass.help(); // 'help yourself'
 ```
