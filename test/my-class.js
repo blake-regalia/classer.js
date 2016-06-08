@@ -63,6 +63,11 @@ class MyClass {
     * public members:
     **/
 
+    // public method to call public operator
+    greet() {
+        return this();
+    }
+
     // public method to access private field
     getName() {
         return this[_private].name;

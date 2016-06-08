@@ -83,6 +83,11 @@ class MyClass {
     * public members:
     **/
 
+    // public method to call public operator
+    greet() {
+        return this();
+    }
+
     // public method to access private field
     getName() {
         return this[_private].name;
@@ -170,6 +175,9 @@ let instance = MyClass({name: 'frank'});
 
 // call instance handle as an operator
 instance(); // 'My name is frank'
+
+// proof that public method can access operator
+instance.greet(); // 'My name is frank'
 
 // access private field using a method
 instance.getName(); // 'frank'
