@@ -1,7 +1,5 @@
-var a_version = process.versions.node.split(/\./g);
-
 // only for node >= v6 (prior releases do not stably support es6)
-if(~~a_version[0] >= 6) {
+if(~~process.versions.node.split(/\./g)[0] >= 6) {
 	module.exports = require('./dist.es6/main/index.js');
 }
 // otherwise, default to es5 version
