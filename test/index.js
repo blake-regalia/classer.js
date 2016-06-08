@@ -110,11 +110,11 @@ describe('mocha', () => {
 			});
 
 			it('operator can access private member', () => {
-				eq(k_async(), 'My name is frank');
+				eq(k_async(), 'frank overrides!');
 			});
 
 			it('public method can access operator', () => {
-				eq(k_async.greet(), 'My name is frank');
+				eq(k_async.greet(), 'frank overrides!');
 			});
 
 			it('public method can access private field', () => {

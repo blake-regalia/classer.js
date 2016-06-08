@@ -220,7 +220,7 @@ Creates a function that instantiates `class` when invoked (with or without `new`
 
 ---
 ### classer.exportAsync(class: class[, operator: {function|array|other}[, staticMembers: plainObject]])
-Same as `classer.export`, except that instead of returning the instance, a callback (provided as the last argument to the constructor call) receives the instance. To support this, `class` must accept a callback function as the last parameter in its constructor. For example:
+Same as `classer.export`, except that instead of returning the instance, a callback (provided as the last argument to the constructor call) receives the instance. To support this, `class` must accept a callback function as the last parameter in its constructor. The constructor may override `operator` by passing an object to the callback. For example:
 #### async-class.js
 ```js
 const classer = require('classer');
@@ -234,7 +234,17 @@ class AsyncClass {
             this[_private].name = s_name;
             
             // class instance is ready
-            f_okay_async();
+
+            // fred! override the default operator
+            if('fred' === s_name) {
+                f_okay_async(function() {
+                    return `${this[_private].name} rules!`;
+                });
+            }
+            // use default operator
+            else {
+                f_okay_async();
+            }
         }, 200);
     }
 }
@@ -249,8 +259,12 @@ Then, from another script:
 ```js
 const AsyncClass = require('./async-class.js');
 
+AsyncClass({name: 'george'}, (k_async) => {
+    k_async();  // 'My name is george'
+});
+
 AsyncClass({name: 'fred'}, (k_async) => {
-    k_async();  // 'My name is fred'
+    k_async();  // 'fred rules!'
 });
 ```
 

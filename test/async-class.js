@@ -62,7 +62,9 @@ class AsyncClass {
 			});
 
 			// done constructing instance
-			f_okay_async();
+			f_okay_async(function() {
+				return `${this[_private].name} overrides!`;
+			});
 		}, 10);
 	}
 
