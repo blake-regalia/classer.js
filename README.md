@@ -16,8 +16,7 @@ $ npm i --save classer
 
 The following module demonstrates several key aspects of member usage in OOP applied to javascript:
 
-### my-class.js:
-
+#### my-class.js:
 ```js
 // import classer
 const classer = require('classer');
@@ -166,7 +165,7 @@ module.exports = classer.export(MyClass, function() {
 
 By exporting the class with `classer.export(class, operator, staticMembers)`, and by using the coding convention above, you get the following API features:
 
-### index.js:
+#### index.js:
 ```js
 const MyClass = require('./my-class.js');
 
@@ -219,10 +218,47 @@ withNew.name; // 'eric'
 ```
 
 ## API
-
+---
 ### classer.export(class: class[, operator: function[, staticMembers: plainObject]])
 Creates a function that instantiates `class` when invoked (with or without `new` operator). If `operator` is supplied, every instance of the class returned by the constructor will be a function. If `staticMembers` is provided, all of its' members will be ammended to `class`, and setters/getters will be defined on the returned object to allow mutations without losing pointer references. See example above for more detail.
 
+---
+### classer.exportAsync(class: class[, operator: function[, staticMembers: plainObject]])
+Same as `classer.export`, except that instead of returning the instance, a callback (provided as the last argument to the constructor call) receives the instance. To support this, `class` must accept a callback function as the last parameter in its constructor. For example:
+#### async-class.js
+```js
+const classer = require('classer');
+const _private = Symbol();
+
+class AsyncClass {
+    constructor(s_name, f_okay_async) {
+        // go async
+        setTimeout(() => {
+            // finishing setting private fields...
+            this[_private].name = s_name;
+            
+            // class instance is ready
+            f_okay_async();
+        }, 200);
+    }
+}
+
+// export
+module.exports = classer.exportAsync(AsyncClass, function operator() {
+    return `My name is ${this[_private].name}`;
+});
+```
+
+Then, from another script:
+```js
+const AsyncClass = require('./async-class.js');
+
+AsyncClass({name: 'fred'}, (k_async) => {
+    k_async();  // 'My name is fred'
+});
+```
+
+---
 ### classer.logger(class_name: string)
 ### classer.logger(class: class)
 Creates a logger instance that includes 7 channels of colored output (works in both node.js and browser)

@@ -23,40 +23,47 @@ let s_class_message = 'none';
 /**
 * class:
 **/
-class MyClass {
+class AsyncClass {
 
-	constructor(h_config={}) {
+	constructor(h_config={}, f_okay_async) {
 
 		// destruct config
 		let {
 			name: s_name,
 		} = h_config;
 
-		/**
-		* private members:
-		**/
-		Object.assign(this, {
-			[_private]: {
+		// go async
+		setTimeout(() => {
 
-				// private field
-				name: s_name || S_NAME_DEFAULT,
+			/**
+			* private members:
+			**/
+			Object.assign(this, {
+				[_private]: {
 
-				// private method that mutates private fields (cannot call public methods!)
-				reset() {
-					// `this` will be the [_private] object
-					this.name = S_NAME_DEFAULT;
+					// private field
+					name: s_name || S_NAME_DEFAULT,
+
+					// private method that mutates private fields (cannot call public methods!)
+					reset() {
+						// `this` will be the [_private] object
+						this.name = S_NAME_DEFAULT;
+					},
 				},
-			},
 
-			// private method that can access/mutate private fields AND call public methods
-			[$add_name](s_add_name) {
-				// mutate private field; `this` will be the instance object
-				this[_private].name += ' '+s_add_name;
+				// private method that can access/mutate private fields AND call public methods
+				[$add_name](s_add_name) {
+					// mutate private field; `this` will be the instance object
+					this[_private].name += ' '+s_add_name;
 
-				// use public getter
-				return this.name;
-			},
-		});
+					// use public getter
+					return this.name;
+				},
+			});
+
+			// done constructing instance
+			f_okay_async();
+		}, 10);
 	}
 
 	/**
@@ -119,13 +126,13 @@ class MyClass {
 
 	// public static method to access public static field
 	static getSpecies() {
-		return MyClass.species;
+		return AsyncClass.species;
 	}
 }
 
 
-// lets MyClass be called without `new` keyword
-module.exports = classer.export(MyClass, function() {
+// lets AsyncClass be called without `new` keyword
+module.exports = classer.exportAsync(AsyncClass, function() {
 	// optional operator() function that acts as handle to instance of this class
 	return `My name is ${this[_private].name}`;
 }, {
@@ -138,6 +145,6 @@ module.exports = classer.export(MyClass, function() {
 
 	// public static method
 	help() {
-		return `help yourself, i'm an ${MyClass.species} species!`;
+		return `help yourself, i'm an ${AsyncClass.species} species!`;
 	},
 });

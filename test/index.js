@@ -1,17 +1,19 @@
 const assert = require('assert');
 const classer = require('../index.js');
 const my_class = require('./my-class.js');
+const async_class = require('./async-class.js');
 
 const eq = assert.strictEqual;
 const neq = assert.notStrictEqual;
 
 describe('export', () => {
-	// test instance
 	let k_test;
-
 	try {
-		k_test = my_class({name: 'frank', hits: 1});
-	} catch(e_test) {}
+		k_test = my_class({name: 'frank'});
+	}
+	catch(e_test) {
+		throw e_test;
+	}
 
 	it('allows `new`-less construction', () => {
 		neq('undefined', typeof k_test);
@@ -25,10 +27,9 @@ describe('export', () => {
 		eq(k_test(), 'My name is frank');
 	});
 
-	// // not supported
-	// it('public method can access operator', () => {
-	// 	eq(k_test.greet(), 'My name is frank');
-	// });
+	it('public method can access operator', () => {
+		eq(k_test.greet(), 'My name is frank');
+	});
 
 	it('public method can access private field', () => {
 		eq(k_test.getName(), 'frank');
@@ -90,6 +91,94 @@ describe('export', () => {
 	});
 });
 
+describe('mocha', () => {
+
+	it('can wait', (cb) => {
+		setTimeout(cb, 20);
+	});
+
+	async_class({name: 'frank'}, (k_async) => {
+
+		describe('exportAsync', () => {
+
+			it('allows `new`-less construction', () => {
+				neq('undefined', typeof k_async);
+			});
+
+			it('supports operator handle', () => {
+				eq('function', typeof k_async);
+			});
+
+			it('operator can access private member', () => {
+				eq(k_async(), 'My name is frank');
+			});
+
+			it('public method can access operator', () => {
+				eq(k_async.greet(), 'My name is frank');
+			});
+
+			it('public method can access private field', () => {
+				eq(k_async.getName(), 'frank');
+			});
+
+			it('public getter can access private field', () => {
+				eq(k_async.name, 'frank');
+			});
+
+			it('public method can call private method', () => {
+				eq(k_async.reset(), undefined);
+			});
+
+			it('private method can mutate private field', () => {
+				eq(k_async.name, 'no-name');
+			});
+
+			it('public setter can mutate private field', () => {
+				k_async.name = 'frank';
+				eq(k_async.name, 'frank');
+			});
+
+			it('private method can use public member', () => {
+				eq(k_async.add('einstein'), 'frank einstein');
+			});
+
+			it('public method can use private method to mutate private field', () => {
+				eq(k_async.name, 'frank einstein');
+			});
+
+			it('public static method can access private static field', () => {
+				eq(async_class.getMessage(), 'none');
+			});
+
+			it('public static getter can access private static field', () => {
+				eq(async_class.message, 'none');
+			});
+
+			it('public static setter can mutate private static field', () => {
+				async_class.message = 'All Your Base Are Belong To Us!';
+				eq(async_class.message, 'All Your Base Are Belong To Us!');
+			});
+
+			it('access public static field', () => {
+				eq(async_class.species, 'classic');
+			});
+
+			it('mutate public static field', () => {
+				async_class.species = 'unknown';
+				eq(async_class.species, 'unknown');
+			});
+
+			it('public static method can access public static field', () => {
+				eq(async_class.getSpecies(), 'unknown');
+			});
+
+			it('public static method can access public static field via proxy', () => {
+				eq(async_class.help(), 'help yourself, i\'m an unknown species!');
+			});
+		});
+	});
+});
+
 describe('logger', () => {
 
 	const local = classer.logger('TestLogging');
@@ -101,7 +190,8 @@ describe('logger', () => {
 	local.error('error');
 	try {
 		local.fail('fail');
-	} catch(e) {
+	}
+	catch(e) {
 		local.good('failing works');
 	}
 });
