@@ -179,6 +179,33 @@ describe('mocha', () => {
 	});
 });
 
+describe('array operator', () => {
+
+	class ArrayOperator {
+		constructor() {
+			this.test = 'yep';
+		}
+	}
+
+	let k_arr = classer.export(ArrayOperator, ['zero', 'one'])();
+
+	it('works', () => {
+		neq(k_arr, undefined);
+	});
+
+	it('accesses array indicies', () => {
+		eq(k_arr[1], 'one');
+	});
+
+	it('supports array getter', () => {
+		eq(k_arr.length, 2);
+	});
+
+	it('accesses instance property', () => {
+		eq(k_arr.test, 'yep');
+	});
+});
+
 describe('logger', () => {
 
 	const local = classer.logger('TestLogging');

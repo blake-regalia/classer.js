@@ -215,11 +215,11 @@ MyClass.help(); // 'help yourself, i'm an unknown species!'
 
 ## API
 ---
-### classer.export(class: class[, operator: function[, staticMembers: plainObject]])
-Creates a function that instantiates `class` when invoked (with or without `new` operator). If `operator` is supplied, every instance of the class returned by the constructor will be that function. If `staticMembers` is provided, all of its' members will be ammended to `class`, and setters/getters will be defined on the returned object to allow mutations without losing pointer references. See example above for more detail.
+### classer.export(class: class[, operator: {function|array|other}[, staticMembers: plainObject]])
+Creates a function that instantiates `class` when invoked (with or without `new` operator). If `operator` is supplied, every instance of the class returned by the constructor will be that object, with its prototype chain set and any necessary properties overriden. If `staticMembers` is provided, all of its' members will be ammended to `class`, and setters/getters will be defined on the returned object to allow mutations without losing pointer references. See example above for more detail.
 
 ---
-### classer.exportAsync(class: class[, operator: function[, staticMembers: plainObject]])
+### classer.exportAsync(class: class[, operator: {function|array|other}[, staticMembers: plainObject]])
 Same as `classer.export`, except that instead of returning the instance, a callback (provided as the last argument to the constructor call) receives the instance. To support this, `class` must accept a callback function as the last parameter in its constructor. For example:
 #### async-class.js
 ```js
