@@ -1,6 +1,6 @@
 {
   "name": "classer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A dependent-less module utility to create `new`-less class instances that double as operator functions",
   "author": {
     "name": "Blake Regalia",
