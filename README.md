@@ -1,6 +1,6 @@
 # classer
 
-A light-weight (dependent-less) module utility that provides `new`-less class instantiation to encourage the practice of a complete Object-Oriented-Programming paradigm. Also includes a 7-channel colored console logger. Works in both node.js and browser.
+A light-weight (dependent-less) module utility that provides `new`-less and asynchronous class instantiation for module exports that practice an Object-Oriented-Programming paradigm. Also includes a 7-channel colored console logger. Works in both node.js and browser.
 
 # Contents
  - [Setup](#install)
@@ -14,7 +14,7 @@ $ npm i --save classer
 
 ## Use
 
-The following module demonstrates several key aspects of member usage in OOP applied to javascript:
+The following module demonstrates an effective use members in an OOP fashion:
 
 #### my-class.js:
 ```js
@@ -211,16 +211,12 @@ MyClass.species; // 'unknown'
 
 // proof that changes to a static field are reflected when using a public static method
 MyClass.help(); // 'help yourself, i'm an unknown species!'
-
-// create instance with `new` (to show it supports maximum compatibility)
-let withNew = new MyClass({name: 'eric'});
-withNew.name; // 'eric'
 ```
 
 ## API
 ---
 ### classer.export(class: class[, operator: function[, staticMembers: plainObject]])
-Creates a function that instantiates `class` when invoked (with or without `new` operator). If `operator` is supplied, every instance of the class returned by the constructor will be a function. If `staticMembers` is provided, all of its' members will be ammended to `class`, and setters/getters will be defined on the returned object to allow mutations without losing pointer references. See example above for more detail.
+Creates a function that instantiates `class` when invoked (with or without `new` operator). If `operator` is supplied, every instance of the class returned by the constructor will be that function. If `staticMembers` is provided, all of its' members will be ammended to `class`, and setters/getters will be defined on the returned object to allow mutations without losing pointer references. See example above for more detail.
 
 ---
 ### classer.exportAsync(class: class[, operator: function[, staticMembers: plainObject]])
