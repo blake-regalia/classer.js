@@ -7,9 +7,10 @@
     "email": "blake.regalia@gmail.com"
   },
   "files": [
-    "dist"
+    "dist.es5",
+    "dist.es6"
   ],
-  "main": "dist/main/index.js",
+  "main": "index.js",
   "keywords": [
     "class",
     "super",
@@ -20,21 +21,22 @@
   ],
   "repository": "blake.regalia/classer",
   "dependencies": {
-    "cli-color": "^1.1.0",
-    "winston": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.6",
-    "babel-eslint": "^6.0.2",
     "babel-preset-es2015": "^6.6.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-debug": "^2.1.2",
     "gulp-eslint": "^2.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.10.4",
     "gulp-mocha": "^2.2.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-soda": "^0.3.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
     "isparta": "^4.0.0"
   },
   "scripts": {
